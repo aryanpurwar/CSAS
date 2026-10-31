@@ -1,0 +1,25 @@
+# Render.com blueprint. The API serves the built client as a single service.
+# Set JWT_SECRET, DATA_ENC_KEY and MONGO_URI in the dashboard (sync: false).
+services:
+  - type: web
+    name: csas
+    runtime: node
+    plan: free
+    buildCommand: cd client && npm ci && npm run build && cd ../server && npm ci
+    startCommand: cd server && node server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: NODE_ENV
+        value: production
+      - key: SERVE_CLIENT
+        value: "true"
+      - key: PUBLIC_URL
+        sync: false
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: DATA_ENC_KEY
+        sync: false

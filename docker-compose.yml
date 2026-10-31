@@ -1,0 +1,54 @@
+# One-command local stack: MongoDB (replica set for transactions), the API serving the
+# built client, and Mailpit to catch simulated phishing emails so they never leave the host.
+#
+#   cp server/.env.docker.example server/.env   # then edit the secrets
+#   docker compose up --build
+#   docker compose exec api npm run seed
+#
+# App:     http://localhost:5000
+# Mailpit: http://localhost:8025
+services:
+  mongo:
+    image: mongo:7
+    command: ["mongod", "--replSet", "rs0", "--bind_ip_all"]
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "try{rs.status().ok}catch(e){rs.initiate({_id:'rs0',members:[{_id:0,host:'mongo:27017'}]}).ok}"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 20s
+
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "8025:8025"   # web UI
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: "true"
+      MP_SMTP_AUTH_ALLOW_INSECURE: "true"
+
+  api:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: "5000"
+      MONGO_URI: mongodb://mongo:27017/csas?replicaSet=rs0
+      PUBLIC_URL: http://localhost:5000
+      SERVE_CLIENT: "true"
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+      SMTP_FROM: it-helpdesk@campus-mail.test
+      # Secrets come from server/.env (see .env.docker.example). Never commit real values.
+    env_file:
+      - server/.env
+    ports:
+      - "5000:5000"
+
+volumes:
+  mongo-data:

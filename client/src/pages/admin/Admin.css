@@ -1,0 +1,49 @@
+.admin-tabs { display: flex; gap: 0.3rem; flex-wrap: wrap; border-bottom: 1px solid var(--line-soft); padding-bottom: 0.1rem; margin-bottom: 0.4rem; }
+.admin-tab { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.55rem 0.85rem; border-radius: var(--r-sm) var(--r-sm) 0 0; color: var(--text-dim); font-weight: 560; font-size: 0.9rem; border-bottom: 2px solid transparent; }
+.admin-tab:hover { color: var(--text); text-decoration: none; }
+.admin-tab.active { color: var(--teal-bright); border-bottom-color: var(--teal); }
+
+.admin-two { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; align-items: start; }
+.chart-card { padding: 1.2rem; }
+.chart-card h3 { margin-bottom: 0.6rem; }
+.module-stats { display: flex; flex-direction: column; gap: 0.7rem; }
+.module-stat-row { display: grid; grid-template-columns: 90px 1fr 46px 90px; align-items: center; gap: 0.6rem; font-size: 0.88rem; }
+.module-stat-name { text-transform: capitalize; font-weight: 560; }
+.module-stat-sub { font-size: 0.78rem; text-align: right; }
+
+.admin-table-wrap { overflow-x: auto; }
+.admin-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 640px; }
+.admin-table th { text-align: left; padding: 0.7rem 0.8rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-faint); border-bottom: 1px solid var(--line-soft); font-weight: 650; }
+.admin-table td { padding: 0.7rem 0.8rem; border-bottom: 1px solid var(--line-soft); }
+.admin-table tr:hover td { background: var(--ink-850); }
+.admin-select { padding: 0.35rem 0.5rem; background: var(--ink-900); border: 1px solid var(--line); border-radius: 6px; color: var(--text); }
+
+.content-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.content-chip { padding: 0.4rem 0.8rem; border-radius: 100px; border: 1px solid var(--line); background: var(--ink-800); font-size: 0.85rem; }
+.content-chip.active { border-color: var(--teal); background: var(--teal-ghost); color: var(--teal-bright); }
+.item-row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.9rem 1rem; border-bottom: 1px solid var(--line-soft); align-items: flex-start; }
+.item-main { flex: 1; min-width: 0; }
+.item-title { font-weight: 600; }
+.item-meta { font-size: 0.8rem; color: var(--text-faint); margin-top: 0.2rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.item-stats { font-size: 0.82rem; color: var(--text-dim); text-align: right; white-space: nowrap; }
+
+.campaign-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; align-items: start; }
+.funnel { display: flex; flex-direction: column; gap: 0.5rem; }
+.funnel-row { display: grid; grid-template-columns: 120px 1fr 50px; align-items: center; gap: 0.6rem; font-size: 0.88rem; }
+.funnel-bar-track { height: 22px; border-radius: 6px; background: var(--ink-700); overflow: hidden; }
+.funnel-bar { height: 100%; border-radius: 6px; }
+
+.group-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+.group-card { padding: 1.2rem; }
+.group-card h3 { display: flex; align-items: center; justify-content: space-between; }
+.metric-row { display: flex; justify-content: space-between; padding: 0.4rem 0; border-bottom: 1px solid var(--line-soft); font-size: 0.88rem; }
+.metric-row .mono { color: var(--teal-bright); }
+.sig-note { font-size: 0.82rem; }
+
+@media (max-width: 920px) { .admin-two, .campaign-grid, .group-compare { grid-template-columns: 1fr; } }
+
+.target-list { max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.3rem; padding: 0.5rem; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--ink-900); }
+.target-item { display: flex; gap: 0.5rem; align-items: center; font-size: 0.88rem; padding: 0.25rem; cursor: pointer; }
+.target-item input { accent-color: var(--teal); }
+.campaign-row { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 0.6rem 0.8rem; border-radius: var(--r-sm); border: 1px solid var(--line-soft); }
+.campaign-name { display: flex; flex-direction: column; text-align: left; flex: 1; gap: 0.1rem; }

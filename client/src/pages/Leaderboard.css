@@ -1,0 +1,12 @@
+.lb { padding: 0.4rem; }
+.lb-head, .lb-row { display: grid; grid-template-columns: 44px 1fr 110px 70px 70px; align-items: center; gap: 0.5rem; padding: 0.7rem 0.9rem; }
+.lb-head { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); font-weight: 650; border-bottom: 1px solid var(--line-soft); }
+.lb-row { border-radius: var(--r-sm); }
+.lb-row.you { background: var(--teal-ghost); }
+.lb-rank { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 7px; background: var(--ink-700); font-weight: 700; font-size: 0.85rem; }
+.lb-rank.top-1 { background: var(--amber); color: #fff; }
+.lb-rank.top-2 { background: #b9c4d0; color: #1a2330; }
+.lb-rank.top-3 { background: #c8803a; color: #2a1502; }
+.lb-name { font-weight: 560; }
+.lb-xp { font-weight: 700; color: var(--teal-bright); text-align: right; }
+@media (max-width: 620px) { .lb-head, .lb-row { grid-template-columns: 38px 1fr 60px; } .lb-head span:nth-child(3), .lb-head span:nth-child(4), .lb-row span:nth-child(3), .lb-row span:nth-child(4) { display: none; } }

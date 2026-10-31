@@ -1,0 +1,159 @@
+/* Design tokens (light theme).
+   One blue for actions, amber for the "inspect" highlights. Red and green verdicts always
+   come with an icon and a label, never colour alone. */
+:root {
+  color-scheme: light;
+  /* Paper-and-ink theme. Names kept from the first version so the page CSS still works. */
+  --ink-900: #f3f0e8;
+  --ink-850: #faf8f2;
+  --ink-800: #ffffff;
+  --ink-750: #ebe7da;
+  --ink-700: #e4dfce;
+  --line: #c9c3ae;
+  --line-soft: #ddd8c5;
+
+  --text: #1d2733;
+  --text-dim: #4a5563;
+  --text-faint: #7a8190;
+
+  --teal: #1f4e79;
+  --teal-bright: #163a5c;
+  --teal-dim: #1f4e79;
+  --teal-ghost: rgba(31, 78, 121, 0.09);
+
+  --amber: #9a6700;
+  --amber-dim: #9a6700;
+  --amber-ghost: rgba(154, 103, 0, 0.12);
+
+  --danger: #b3261e;
+  --danger-ghost: rgba(179, 38, 30, 0.09);
+  --success: #1e7a46;
+  --success-ghost: rgba(30, 122, 70, 0.1);
+  --info-ghost: rgba(31, 78, 121, 0.08);
+
+  --r-sm: 4px;
+  --r: 6px;
+  --r-lg: 8px;
+  --sans: 'Public Sans Variable', system-ui, -apple-system, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --shadow: none;
+  --shadow-soft: none;
+  --focus: 0 0 0 2px var(--ink-900), 0 0 0 4px var(--teal);
+
+  --pad-top: env(safe-area-inset-top, 0px);
+  --pad-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  min-height: 100vh;
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--ink-900);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--teal); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+button, input, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
+
+button { cursor: pointer; border: none; background: none; }
+button:disabled { cursor: not-allowed; opacity: 0.55; }
+
+:focus-visible { outline: none; box-shadow: var(--focus); border-radius: var(--r-sm); }
+
+h1, h2, h3, h4 { line-height: 1.2; font-weight: 640; letter-spacing: -0.015em; }
+h1 { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2rem); }
+h2 { font-size: 1.22rem; }
+h3 { font-size: 1.02rem; }
+
+.mono { font-family: var(--mono); font-feature-settings: 'zero' 1; }
+
+::selection { background: var(--teal-dim); color: #fff; }
+
+* { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb { background: var(--line); border-radius: 20px; border: 3px solid transparent; background-clip: content-box; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* ---- Primitives ---- */
+.card {
+  background: var(--ink-800);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  padding: 0.62rem 1.1rem; border-radius: var(--r-sm); font-weight: 600;
+  background: var(--ink-700); color: var(--text); border: 1px solid var(--line);
+  transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+}
+.btn:hover:not(:disabled) { background: var(--ink-750); border-color: var(--teal-dim); }
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.btn-primary {
+  background: var(--teal); color: #fff; border-color: var(--teal); font-weight: 600;
+}
+.btn-primary:hover:not(:disabled) { background: var(--teal-bright); }
+.btn-ghost { background: transparent; border-color: var(--line); }
+.btn-danger { background: var(--danger-ghost); border-color: transparent; color: var(--danger); }
+.btn-lg { padding: 0.8rem 1.4rem; font-size: 1.02rem; }
+.btn-block { display: flex; width: 100%; }
+.btn-sm { padding: 0.4rem 0.7rem; font-size: 0.85rem; }
+
+.field { display: flex; flex-direction: column; gap: 0.38rem; }
+.field > label { font-size: 0.82rem; color: var(--text-dim); font-weight: 560; }
+.input {
+  width: 100%; padding: 0.68rem 0.85rem; background: var(--ink-900);
+  border: 1px solid var(--line); border-radius: var(--r-sm); color: var(--text);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.input::placeholder { color: var(--text-faint); }
+.input:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-ghost); }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.2rem 0.6rem;
+  border-radius: 100px; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.01em;
+  background: var(--ink-700); color: var(--text-dim); border: 1px solid var(--line-soft);
+}
+.pill-teal { background: var(--teal-ghost); color: var(--teal-bright); border-color: transparent; }
+.pill-amber { background: var(--amber-ghost); color: var(--amber); border-color: transparent; }
+.pill-danger { background: var(--danger-ghost); color: var(--danger); border-color: transparent; }
+.pill-success { background: var(--success-ghost); color: var(--success); border-color: transparent; }
+
+.stack { display: flex; flex-direction: column; }
+.row { display: flex; align-items: center; }
+.muted { color: var(--text-dim); }
+.faint { color: var(--text-faint); }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.banner {
+  display: flex; gap: 0.7rem; padding: 0.8rem 1rem; border-radius: var(--r);
+  border: 1px solid var(--line-soft); align-items: flex-start; font-size: 0.9rem;
+}
+.banner-amber { background: var(--amber-ghost); border-color: transparent; color: var(--amber); }
+.banner-teal { background: var(--teal-ghost); border-color: transparent; color: var(--teal-bright); }
+.banner-danger { background: var(--danger-ghost); border-color: transparent; color: var(--danger); }
+
+.spinner {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid var(--line); border-top-color: var(--teal); animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.page-enter { animation: fade 0.3s ease both; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }

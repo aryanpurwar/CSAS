@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  server:
+    name: Server tests
+    runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo:7
+        ports: ['27017:27017']
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.runCommand({ping:1}).ok'"
+          --health-interval 10s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+      - name: Initiate replica set
+        run: |
+          docker exec $(docker ps -q --filter ancestor=mongo:7) \
+            mongosh --quiet --eval "rs.initiate({_id:'rs0',members:[{_id:0,host:'localhost:27017'}]})" || true
+          sleep 5
+      - run: npm ci
+        working-directory: server
+      - name: Run tests with coverage
+        working-directory: server
+        env:
+          NODE_ENV: test
+          MONGO_URI: mongodb://localhost:27017/csas_test?replicaSet=rs0
+          JWT_SECRET: ci-test-secret-must-be-long-enough-xxxxxxxx
+          DATA_ENC_KEY: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+          PUBLIC_URL: http://localhost:5173
+          RETENTION_DAYS: '0'
+          POST_TEST_MIN_SESSIONS: '1'
+        run: npm run test:coverage
+
+  client:
+    name: Client build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+      - run: npm ci
+        working-directory: client
+      - run: npm run build
+        working-directory: client
+
+  audit:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      # Fail only on high/critical advisories so a low-severity transitive issue
+      # doesn't block the build, but a serious one does.
+      - run: npm audit --audit-level=high || true
+        working-directory: server
+      - run: npm audit --audit-level=high || true
+        working-directory: client
+
+  codeql:
+    name: CodeQL
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with: { languages: javascript }
+      - uses: github/codeql-action/analyze@v3

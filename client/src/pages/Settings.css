@@ -1,0 +1,7 @@
+.set-card { padding: 1.3rem; display: flex; flex-direction: column; gap: 1rem; }
+.set-card h3 { display: flex; align-items: center; gap: 0.5rem; }
+.set-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+.set-card .btn { align-self: flex-start; }
+.mfa-setup { display: flex; flex-direction: column; gap: 0.7rem; }
+.mfa-qr { width: 180px; height: 180px; border-radius: var(--r); background: #fff; padding: 8px; }
+@media (max-width: 620px) { .set-grid { grid-template-columns: 1fr; } }

@@ -1,0 +1,37 @@
+{
+  "name": "csas-server",
+  "version": "3.0.0",
+  "description": "Cybersecurity Awareness System API: adaptive phishing-awareness training, campaign simulation and study instrumentation",
+  "main": "server.js",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node seed/seed.js",
+    "recompute": "node scripts/recompute.js",
+    "test": "node --test --test-concurrency=1 \"tests/unit/**/*.test.js\" \"tests/integration/**/*.test.js\"",
+    "test:unit": "node --test \"tests/unit/**/*.test.js\"",
+    "test:integration": "node --test --test-concurrency=1 \"tests/integration/**/*.test.js\"",
+    "test:coverage": "node --test --test-concurrency=1 --experimental-test-coverage \"tests/unit/**/*.test.js\" \"tests/integration/**/*.test.js\""
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.2",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.24.0",
+    "nodemailer": "^6.10.1",
+    "pino": "^9.14.0",
+    "qrcode": "^1.5.4",
+    "zod": "^3.25.76",
+    "zxcvbn": "^4.4.2"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.1"
+  }
+}

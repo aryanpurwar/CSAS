@@ -1,0 +1,41 @@
+.auth-wrap {
+  min-height: 100vh; display: grid; grid-template-columns: 1.1fr 1fr;
+}
+.auth-aside {
+  padding: clamp(2rem, 5vw, 4rem); display: flex; flex-direction: column; justify-content: space-between;
+  background: var(--ink-750);
+  border-right: 1px solid var(--line-soft);
+}
+.auth-aside .brand { padding: 0; }
+.auth-hero { max-width: 34ch; }
+.auth-hero h1 { font-size: clamp(1.8rem, 1.4rem + 2vw, 2.7rem); line-height: 1.08; }
+.auth-hero p { color: var(--text-dim); margin-top: 1rem; font-size: 1.02rem; }
+.auth-points { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 2rem; }
+.auth-point { display: flex; gap: 0.7rem; align-items: flex-start; color: var(--text-dim); font-size: 0.95rem; }
+.auth-point svg { color: var(--teal); margin-top: 2px; flex-shrink: 0; }
+.auth-foot { color: var(--text-faint); font-size: 0.8rem; }
+
+.auth-main { display: grid; place-items: center; padding: 2rem clamp(1rem, 4vw, 3rem); }
+.auth-card { width: 100%; max-width: 400px; }
+.auth-card h2 { margin-bottom: 0.3rem; }
+.auth-card .sub { color: var(--text-dim); margin-bottom: 1.6rem; }
+.auth-form { display: flex; flex-direction: column; gap: 1rem; }
+.auth-alt { margin-top: 1.3rem; text-align: center; color: var(--text-dim); font-size: 0.92rem; }
+
+.pw-input { position: relative; }
+.pw-input .input { padding-right: 2.6rem; }
+.pw-toggle { position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%); color: var(--text-faint); padding: 0.3rem; border-radius: 6px; }
+.pw-toggle:hover { color: var(--text); }
+
+.strength { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.1rem; }
+.strength-bars { display: flex; gap: 4px; }
+.strength-seg { flex: 1; height: 5px; border-radius: 100px; background: var(--ink-700); }
+.strength-row { display: flex; justify-content: space-between; font-size: 0.78rem; }
+.strength-hint { color: var(--text-faint); font-size: 0.78rem; }
+
+.mfa-digits { display: flex; justify-content: center; }
+
+@media (max-width: 820px) {
+  .auth-wrap { grid-template-columns: 1fr; }
+  .auth-aside { display: none; }
+}
